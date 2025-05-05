@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
 
   def index
-    @posts = Post.all
+    @pagy, @posts = pagy(Post.recent)
   end
 
   def show; end
@@ -32,10 +32,14 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    @post = Post.find(params[:id])
     if @post.destroy
-      redirect_to posts_url, notice: "Post was successfully destroyed.", status: :see_other
+      respond_to do |format|
+        format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
+        format.turbo_stream { render turbo_stream: turbo_stream.remove(@post) }
+      end
     else
-      redirect_to posts_url, alert: "Failed to delete post.", status: :unprocessable_entity
+      redirect_to posts_url, alert: "Failed to delete post."
     end
   end
 

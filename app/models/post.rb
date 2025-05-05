@@ -3,6 +3,8 @@ class Post < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 150 }
   validates :body,  length: { maximum: 500 }, allow_blank: true
+
+  scope :recent, -> { order(created_at: :desc) }
 end
 
 # == Schema Information

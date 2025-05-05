@@ -1,13 +1,20 @@
 <h1>Posts</h1>
 
-<%= link_to 'New Post', new_post_path %>
+<p>
+  <%= link_to 'New Post', new_post_path %>
+</p>
 
 <ul>
   <% @posts.each do |post| %>
     <li>
-      <%= link_to post.title, post_path(post) %> —
-      <%= link_to 'Edit', edit_post_path(post) %> |
-      <%= link_to 'Delete', post_path(post), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <strong><%= link_to post.title, post_path(post) %></strong>
+      <br>
+      <small>
+        <%= link_to 'Edit', edit_post_path(post) %> |
+        <%= link_to 'Delete', post_path(post), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </small>
     </li>
   <% end %>
 </ul>
+
+<%= pagy_nav(@pagy) %>

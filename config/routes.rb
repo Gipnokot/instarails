@@ -10,5 +10,5 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => "/sidekiq"
   end
 
-  # root "posts#index"
+  root "posts#index"
 end
