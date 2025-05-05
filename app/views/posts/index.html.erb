@@ -1,18 +1,27 @@
 <h1>Posts</h1>
 
-<p>
-  <%= link_to 'New Post', new_post_path %>
-</p>
+<% if policy(Post).create? %>
+  <p>
+    <%= link_to 'New Post', new_post_path, class: "btn btn-primary" %>
+  </p>
+<% end %>
 
 <ul>
   <% @posts.each do |post| %>
     <li>
-      <strong><%= link_to post.title, post_path(post) %></strong>
-      <br>
-      <small>
-        <%= link_to 'Edit', edit_post_path(post) %> |
-        <%= link_to 'Delete', post_path(post), method: :delete, data: { confirm: 'Are you sure?' } %>
-      </small>
+      <strong><%= link_to post.title, post_path(post) %></strong><br>
+
+      <% if policy(post).update? || policy(post).destroy? %>
+        <small>
+          <% if policy(post).update? %>
+            <%= link_to 'Edit', edit_post_path(post), class: 'text-blue-500 hover:text-blue-700' %>
+          <% end %>
+          <% if policy(post).destroy? %>
+            |
+            <%= link_to 'Delete', post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-500 hover:text-red-700' %>
+          <% end %>
+        </small>
+      <% end %>
     </li>
   <% end %>
 </ul>

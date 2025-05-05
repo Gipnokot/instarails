@@ -3,17 +3,21 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
 
   def index
-    @pagy, @posts = pagy(Post.recent)
+    @pagy, @posts = pagy(policy_scope(Post.includes(:user)))
   end
 
-  def show; end
+  def show
+    authorize @post
+  end
 
   def new
     @post = current_user.posts.build
+    authorize @post
   end
 
   def create
     @post = current_user.posts.build(post_params)
+    authorize @post
     if @post.save
       redirect_to @post, notice: "Post was successfully created"
     else
@@ -21,9 +25,12 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    authorize @post
+  end
 
   def update
+    authorize @post
     if @post.update(post_params)
       redirect_to @post, notice: "Post was successfully updated.", status: :see_other
     else
@@ -32,7 +39,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
+    authorize @post
     if @post.destroy
       respond_to do |format|
         format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }

@@ -5,6 +5,8 @@
 <p class="text-sm text-gray-500">Author: <%= @post.user.email %></p>
 
 <div class="mt-6">
-  <%= link_to 'Edit', edit_post_path(@post), class: 'text-blue-500 hover:text-blue-700 mr-4' %>
+  <% if policy(@post).update? %>
+    <%= link_to 'Edit', edit_post_path(@post), class: 'text-blue-500 hover:text-blue-700 mr-4' %>
+  <% end %>
   <%= link_to 'Back to Posts', posts_path, class: 'text-gray-500 hover:text-gray-700' %>
 </div>

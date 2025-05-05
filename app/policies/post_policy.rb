@@ -1,0 +1,31 @@
+class PostPolicy < ApplicationPolicy
+  def index?; true; end
+
+  def show?
+    owner?
+  end
+
+  def create?
+    user.present?
+  end
+
+  def update?
+    owner?
+  end
+
+  def destroy?
+    owner?
+  end
+
+  class Scope < ApplicationPolicy::Scope
+    def resolve
+      scope.recent
+    end
+  end
+
+  private
+
+  def owner?
+    user.present? && record.user == user
+  end
+end
