@@ -9,6 +9,7 @@ gem "puma", ">= 5.0"
 gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
+gem "sprockets-rails"
 gem "tailwindcss-rails", "~> 4.2", ">= 4.2.3"
 
 # --- Authorize and policies ---
@@ -50,10 +51,11 @@ end
 group :development do
   gem "web-console"
   gem "rails_best_practices", require: false
+  gem "letter_opener"
 end
 
 group :test do
-  gem "rspec-rails", "~> 6.1"
+  gem "rspec-rails", "~> 8.0"
   gem "capybara", ">= 3.39"
   gem "selenium-webdriver"
   gem "webdrivers"
