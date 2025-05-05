@@ -31,6 +31,7 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 
 
 group :development, :test do
+  gem "dotenv-rails"
   gem "annotate"
   gem "bullet"
   gem "factory_bot_rails"
