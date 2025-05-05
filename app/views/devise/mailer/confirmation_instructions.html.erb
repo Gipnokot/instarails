@@ -1,5 +1,40 @@
-<p>Welcome <%= @email %>!</p>
-
-<p>You can confirm your account email through the link below:</p>
-
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style>
+      body { font-family: Arial, sans-serif; color: #333; margin: 0; padding: 0; }
+      .container { max-width: 600px; margin: 20px auto; padding: 20px; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; }
+      .header { text-align: center; padding-bottom: 20px; }
+      .button { display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold; }
+      .footer { font-size: 12px; color: #777; text-align: center; padding-top: 20px; }
+      @media only screen and (max-width: 600px) {
+        .container { padding: 10px; }
+        .button { padding: 8px 16px; font-size: 14px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <img src="https://res.cloudinary.com/dria2m8sy/image/upload/v1746471291/kaysoj6voiogwq8ved7l.png" alt="InstaRails Banner" style="max-width: 100%; height: auto;" />
+        <h1>Welcome to InstaRails!</h1>
+        <p>Hello, <%= @email %>!</p>
+      </div>
+      
+      <p>Thank you for joining InstaRails! To get started, please confirm your email address by clicking the button below:</p>
+      
+      <p style="text-align: center;">
+        <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token), class: 'button' %>
+      </p>
+      
+      <p>If the button doesn’t work, copy and paste this link into your browser:</p>
+      <p style="word-break: break-all;"><%= confirmation_url(@resource, confirmation_token: @token) %></p>
+      
+      <div class="footer">
+        <p>© <%= Time.now.year %> InstaRails. All rights reserved.</p>
+        <p>If you didn’t register with InstaRails, please ignore this email or contact our support team.</p>
+      </div>
+    </div>
+  </body>
+</html>
