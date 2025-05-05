@@ -24,7 +24,7 @@ require 'rspec/rails'
 # require only the support files necessary.
 #
 # Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
-
+Capybara.javascript_driver = :selenium_chrome_headless
 # Ensures that the test database schema matches the current schema file.
 # If there are pending migrations it will invoke `db:test:prepare` to
 # recreate the test database by loading the schema.
