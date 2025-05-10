@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_post, only: %i[show edit update destroy]
 
   def index
@@ -8,6 +7,8 @@ class PostsController < ApplicationController
 
   def show
     authorize @post
+    @comment = @post.comments.build
+    @post = Post.includes(comments: :user).find(params[:id])
   end
 
   def new
@@ -57,6 +58,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(:title, :body, :image)
   end
 end

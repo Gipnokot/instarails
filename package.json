@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.6",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.6"
+  },
+  "devDependencies": {
+    "daisyui": "^5.0.35"
+  },
+  "name": "instarails",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "tailwind.config.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gipnokot/instarails.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gipnokot/instarails/issues"
+  },
+  "homepage": "https://github.com/Gipnokot/instarails#readme"
+}

@@ -1,6 +1,6 @@
-class DeviseMailerJob < ApplicationJob
+class DeviseMailerJob
+  include Sidekiq::Worker
   queue_as :mailers
-  retry_on StandardError, wait: 5.minutes, attempts: 3
 
   def perform(user_id, type, *args)
     user = User.find_by(id: user_id)

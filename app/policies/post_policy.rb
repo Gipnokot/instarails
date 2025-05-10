@@ -2,7 +2,7 @@ class PostPolicy < ApplicationPolicy
   def index?; true; end
 
   def show?
-    owner?
+    true
   end
 
   def create?

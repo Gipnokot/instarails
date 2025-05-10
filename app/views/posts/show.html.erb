@@ -1,12 +1,72 @@
-<h1 class="text-3xl font-bold mb-4"><%= @post.title %></h1>
+<div class="max-w-xl mx-auto p-4">
+  <!-- Автор и заголовок -->
+  <div class="flex items-center mb-4 space-x-3">
+    <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-semibold">
+      <%= @post.user.email.first.upcase %>
+    </div>
+    <div>
+      <div class="font-semibold"><%= @post.user.email.split('@').first %></div>
+      <div class="text-sm text-gray-500"><%= @post.created_at.strftime("%B %d, %Y") %></div>
+    </div>
+  </div>
 
-<p class="mb-4"><%= @post.body %></p>
-
-<p class="text-sm text-gray-500">Author: <%= @post.user.email %></p>
-
-<div class="mt-6">
-  <% if policy(@post).update? %>
-    <%= link_to 'Edit', edit_post_path(@post), class: 'text-blue-500 hover:text-blue-700 mr-4' %>
+  <!-- Изображение -->
+  <% if @post.image_url(:show).present? %>
+    <div class="mb-4">
+      <%= image_tag @post.image_url(:show),
+                    class: "rounded-lg w-full object-cover aspect-square shadow-md" %>
+    </div>
   <% end %>
-  <%= link_to 'Back to Posts', posts_path, class: 'text-gray-500 hover:text-gray-700' %>
+
+  <!-- Заголовок и описание -->
+  <div class="bg-white border rounded-lg shadow-sm p-4 mb-6">
+    <h1 class="text-xl font-bold mb-2"><%= @post.title %></h1>
+    <div class="prose max-w-none text-gray-700">
+      <%= simple_format(@post.body) %>
+    </div>
+  </div>
+
+  <!-- Кнопки -->
+  <div class="flex flex-wrap gap-2">
+    <% if policy(@post).update? %>
+      <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-outline btn-primary' %>
+    <% end %>
+    <% if policy(@post).destroy? %>
+      <%= button_to 'Delete', post_path(@post), method: :delete,
+                    data: { confirm: 'Are you sure?' },
+                    class: 'btn btn-outline btn-error' %>
+    <% end %>
+    <%= link_to '← Back to Posts', posts_path, class: 'btn btn-secondary' %>
+  </div>
+</div>
+
+<!-- Комментарии -->
+<div class="mt-10">
+  <h2 class="text-lg font-semibold mb-4">Комментарии</h2>
+
+  <!-- Список комментариев -->
+  <div class="space-y-4">
+    <% @post.comments.each do |comment| %>
+      <div class="bg-base-100 p-4 rounded-lg shadow-sm border">
+        <div class="flex justify-between items-center mb-2">
+          <div class="text-sm text-gray-500">
+            <strong><%= comment.user.email.split('@').first %></strong> — 
+            <%= l(comment.created_at, format: :short) %>
+          </div>
+          <% if policy(comment).destroy? %>
+            <%= button_to 'Удалить', post_comment_path(@post, comment), method: :delete,
+                          data: { turbo_confirm: "Удалить комментарий?" },
+                          class: "btn btn-xs btn-error btn-outline" %>
+          <% end %>
+        </div>
+        <div class="text-gray-800"><%= simple_format(comment.body) %></div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Форма добавления комментария -->
+  <div class="mt-8">
+    <h3 class="text-md font-medium mb-2">Добавить комментарий</h3>
+      <%= render 'comments/form', post: @post, comment: @comment %>
+  </div>
 </div>

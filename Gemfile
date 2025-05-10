@@ -36,8 +36,6 @@ group :development, :test do
   gem "dotenv-rails"
   gem "annotate"
   gem "bullet"
-  gem "factory_bot_rails"
-  gem "faker"
   # Debug
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"
   gem "brakeman", require: false
@@ -62,6 +60,8 @@ group :test do
   gem "capybara", ">= 3.39"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem "factory_bot_rails"
+  gem "faker"
   gem "shoulda-matchers", "~> 6.0"
   gem "database_cleaner-active_record"
   gem "simplecov", require: false

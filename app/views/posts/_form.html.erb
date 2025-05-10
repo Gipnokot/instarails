@@ -1,9 +1,11 @@
-<%= form_with model: post, local: true do |form| %>
+<%= form_with model: post, local: true, html: { class: "space-y-6" } do |form| %>
   <% if post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-      <ul>
+    <div role="alert" class="alert alert-error shadow-lg">
+      <div>
+        <i class="lucide lucide-alert-circle"></i>
+        <span><%= pluralize(post.errors.count, "ошибка") %> не позволили сохранить пост:</span>
+      </div>
+      <ul class="list-disc list-inside mt-2 text-sm text-red-100">
         <% post.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
@@ -11,17 +13,32 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title %><br>
-    <%= form.text_field :title %>
+  <!-- Title -->
+  <div class="form-control">
+    <%= form.label :title, class: "label" do %>
+      <span class="label-text">Заголовок</span>
+    <% end %>
+    <%= form.text_field :title, class: "input input-bordered w-full" %>
   </div>
 
-  <div>
-    <%= form.label :body %><br>
-    <%= form.text_area :body %>
+  <!-- Body -->
+  <div class="form-control">
+    <%= form.label :body, class: "label" do %>
+      <span class="label-text">Описание</span>
+    <% end %>
+    <%= form.text_area :body, rows: 4, class: "textarea textarea-bordered w-full" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <!-- Image Upload -->
+  <div class="form-control">
+    <%= form.label :image, class: "label" do %>
+      <span class="label-text">Изображение</span>
+    <% end %>
+    <%= form.file_field :image, direct_upload: true, class: "file-input file-input-bordered w-full" %>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="form-control">
+    <%= form.submit post.persisted? ? "Обновить пост" : "Создать пост", class: "btn btn-primary w-full" %>
   </div>
 <% end %>

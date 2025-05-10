@@ -9,20 +9,46 @@
 
     <%= yield :head %>
 
+    <!-- PWA -->
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
+
+    <!-- Styles -->
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+    <!-- JS -->
     <%= javascript_importmap_tags %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="bg-base-100 text-base-content">
+    <!-- Header -->
+    <%= render "shared/header" %>
+
+    <!-- Flash messages -->
+    <div class="container mx-auto px-4 mt-4">
+      <% if notice %>
+        <div class="alert alert-success shadow-lg mb-4">
+          <i class="lucide lucide-check-circle"></i>
+          <span><%= notice %></span>
+        </div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-error shadow-lg mb-4">
+          <i class="lucide lucide-alert-circle"></i>
+          <span><%= alert %></span>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Main content -->
+    <main class="container mx-auto px-5 mt-8">
       <%= yield %>
     </main>
+
+    <!-- Footer -->
+    <%= render "shared/footer" %>
   </body>
 </html>

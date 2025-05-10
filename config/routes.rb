@@ -3,12 +3,17 @@ require "sidekiq/web"
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :users, only: [ :show ]
-  resources :posts
+  resources :posts do
+    resources :comments, only: [ :new, :create, :edit, :update, :destroy ]
+  end
 
   authenticate :user do
     mount Sidekiq::Web => "/sidekiq"
   end
 
+   mount Shrine.derivation_endpoint => "derivations"
+
   root "posts#index"
+  get "/assets/tailwindcss", to: redirect("/assets/application.css")
+  get "/manifest.json", to: "application#manifest"
 end
