@@ -32,6 +32,11 @@
           <%= truncate(post.title, length: 150) %>
         </div>
 
+        <!-- 💡 Like-кнопки и счётчик -->
+        <div id="like_buttons_<%= post.id %>">
+          <%= render partial: "posts/like_buttons", locals: { post: post } %>
+        </div>
+
         <!-- Actions -->
         <div class="flex items-center justify-between px-4 pb-4">
           <div class="flex space-x-4">

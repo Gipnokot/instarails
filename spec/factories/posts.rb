@@ -4,13 +4,14 @@
 #
 # Table name: posts
 #
-#  id         :bigint           not null, primary key
-#  body       :text
-#  image_data :jsonb
-#  title      :string(150)      not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  id          :bigint           not null, primary key
+#  body        :text
+#  image_data  :jsonb
+#  likes_count :integer          default(0), not null
+#  title       :string(150)      not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :bigint           not null
 #
 # Indexes
 #

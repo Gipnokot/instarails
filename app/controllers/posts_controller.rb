@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
 
   def index
-    @pagy, @posts = pagy(policy_scope(Post.includes(:user)))
+    @pagy, @posts = pagy(policy_scope(Post.includes(:user, :likes)))
   end
 
   def show

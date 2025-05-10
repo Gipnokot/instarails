@@ -1,0 +1,17 @@
+<% like = post.likes.find { |l| l.user_id == current_user.id } %>
+
+<div class="flex items-center gap-2 px-4 py-2">
+  <% if like %>
+    <%= button_to '💔', post_like_path(post, like),
+          method: :delete,
+          data: { turbo_stream: true },
+          class: 'btn btn-sm btn-outline' %>
+  <% else %>
+    <%= button_to '❤️', post_likes_path(post),
+          method: :post,
+          data: { turbo_stream: true },
+          class: 'btn btn-sm btn-primary' %>
+  <% end %>
+
+  <p><%= pluralize(post.likes_count, 'Like') %></p>
+</div>

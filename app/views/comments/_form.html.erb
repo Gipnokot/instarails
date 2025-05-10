@@ -2,7 +2,7 @@
   <% if comment.errors.any? %>
     <div class="alert alert-error shadow-lg">
       <div>
-        <strong><%= pluralize(comment.errors.count, "ошибка") %>:</strong>
+        <strong><%= pluralize(comment.errors.count, "error") %>:</strong>
         <ul>
           <% comment.errors.full_messages.each do |message| %>
             <li><%= message %></li>
@@ -13,8 +13,8 @@
   <% end %>
 
   <div>
-    <%= f.label :body, "Комментарий", class: "label" %>
-    <%= f.text_area :body, rows: 3, class: "textarea textarea-bordered w-full", placeholder: "Напишите комментарий..." %>
+    <%= f.label :body, "Comment", class: "label" %>
+    <%= f.text_area :body, rows: 3, class: "textarea textarea-bordered w-full", placeholder: "Write a comment.." %>
   </div>
 
   <div class="flex justify-end">
