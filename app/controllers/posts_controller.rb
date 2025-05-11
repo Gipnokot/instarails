@@ -2,7 +2,8 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
 
   def index
-    @pagy, @posts = pagy(policy_scope(Post.includes(:user, :likes)))
+    base_scope = policy_scope(Post)
+    @posts = base_scope.order(created_at: :desc).includes(:user, :likes).page(params[:page]).per(5)
   end
 
   def show

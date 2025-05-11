@@ -1,5 +1,18 @@
-<footer class="footer footer-center p-6 mt-16 bg-base-200 text-base-content">
-  <div>
-    <p>&copy; <%= Time.current.year %> InstaRails — сделано с <span class="text-red-500">❤</span> на Ruby on Rails</p>
-  </div>
+<footer class="footer footer-center p-10 bg-base-200 text-base-content mt-16">
+  <aside>
+    <i class="lucide lucide-heart text-red-500 text-3xl mb-2"></i>
+    <p class="font-bold text-lg">
+      InstaRails
+    </p>
+    <p class="text-sm">
+      &copy; <%= Time.current.year %> — Сделано на Ruby on Rails.
+    </p>
+  </aside>
+  <nav>
+    <div class="grid grid-flow-col gap-4">
+      <%= link_to 'Главная', root_path, class: "link link-hover" %>
+      <%= link_to 'О проекте', '#', class: "link link-hover" %>
+      <%= link_to 'GitHub', 'https://github.com/', class: "link link-hover", target: "_blank" %>
+    </div>
+  </nav>
 </footer>

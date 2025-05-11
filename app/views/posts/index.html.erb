@@ -6,68 +6,62 @@
   </div>
 <% end %>
 
-<div class="max-w-xl mx-auto flex flex-col">
-  <!-- Список постов -->
-  <div class="space-y-8">
-    <% @posts.each do |post| %>
-      <div class="card bg-base-100 shadow-md border">
-        <!-- Header -->
-        <div class="flex items-center p-4 space-x-3">
-          <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-semibold">
-            <%= post.user.email.first.upcase %>
-          </div>
-          <span class="font-semibold"><%= post.user.email.split('@').first %></span>
+<div class="max-w-xl mx-auto flex flex-col space-y-8">
+  <% @posts.each do |post| %>
+    <div class="card bg-base-100 shadow-md border">
+      <!-- Header -->
+      <div class="flex items-center p-4 space-x-3">
+        <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-semibold">
+          <%= post.user.email.first.upcase %>
         </div>
-
-        <!-- Image -->
-        <% if post.image_url(:feed).present? %>
-          <%= link_to post_path(post) do %>
-            <%= image_tag post.image_url(:feed), class: "w-full object-cover aspect-square" %>
-          <% end %>
-        <% end %>
-
-        <!-- Caption -->
-        <div class="px-4 py-2">
-          <span class="font-semibold mr-2"><%= post.user.email.split('@').first %></span>
-          <%= truncate(post.title, length: 150) %>
-        </div>
-
-        <!-- 💡 Like-кнопки и счётчик -->
-        <div id="like_buttons_<%= post.id %>">
-          <%= render partial: "posts/like_buttons", locals: { post: post } %>
-        </div>
-
-        <!-- Actions -->
-        <div class="flex items-center justify-between px-4 pb-4">
-          <div class="flex space-x-4">
-            <button class="btn btn-sm btn-ghost hover:text-red-500">
-              <i class="lucide lucide-heart"></i>
-            </button>
-            <button class="btn btn-sm btn-ghost hover:text-blue-500">
-              <i class="lucide lucide-message-circle"></i>
-            </button>
-          </div>
-
-          <% if policy(post).update? || policy(post).destroy? %>
-            <div class="flex space-x-2">
-              <% if policy(post).update? %>
-                <%= link_to 'Edit', edit_post_path(post), class: "btn btn-sm btn-outline btn-primary" %>
-              <% end %>
-              <% if policy(post).destroy? %>
-                <%= button_to 'Delete', post_path(post),
-                      method: :delete,
-                      data: { confirm: 'Are you sure?' },
-                      class: "btn btn-sm btn-outline btn-error" %>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
+        <span class="font-semibold"><%= post.user.email.split('@').first %></span>
       </div>
-    <% end %>
-  </div>
+
+      <!-- Image -->
+      <% if post.image_url(:feed).present? %>
+        <%= link_to post_path(post) do %>
+          <%= image_tag post.image_url(:feed), class: "w-full object-cover aspect-square" %>
+        <% end %>
+      <% end %>
+
+      <!-- Caption -->
+      <div class="px-4 py-2">
+        <span class="font-semibold mr-2"><%= post.user.email.split('@').first %></span>
+        <%= truncate(post.title, length: 150) %>
+      </div>
+
+      <!-- Like-кнопки -->
+      <div id="like_buttons_<%= post.id %>">
+        <%= render partial: "posts/like_buttons", locals: { post: post } %>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex items-center justify-between px-4 pb-4">
+        <%= link_to 'Comment', post_path(post), class: "btn btn-sm btn-outline btn-neutral" %>
+
+        <% if policy(post).update? || policy(post).destroy? %>
+          <div class="flex space-x-2">
+            <% if policy(post).update? %>
+              <%= link_to 'Edit', edit_post_path(post), class: "btn btn-sm btn-outline btn-primary" %>
+            <% end %>
+            <% if policy(post).destroy? %>
+              <%= button_to 'Delete', post_path(post),
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' },
+                    class: "btn btn-sm btn-outline btn-error" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 
   <!-- Пагинация -->
-  <div class="mt-10 flex justify-center">
-    <%= raw pagy_nav(@pagy) %>
-  </div>
+  <% if @posts.total_pages > 1 %>
+    <div class="mt-10 flex justify-center">
+      <div class="join">
+        <%= paginate @posts, theme: 'tailwind' %>
+      </div>
+    </div>
+  <% end %>
 </div>

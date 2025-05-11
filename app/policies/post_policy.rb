@@ -19,7 +19,7 @@ class PostPolicy < ApplicationPolicy
 
   class Scope < ApplicationPolicy::Scope
     def resolve
-      scope.recent
+      user.present? ? scope.all : scope.none
     end
   end
 

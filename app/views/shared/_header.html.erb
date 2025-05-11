@@ -1,18 +1,31 @@
 <header class="navbar bg-base-100 shadow-md fixed top-0 left-0 w-full z-50">
-  <div class="container mx-auto px-4 flex justify-between items-center">
-    <%= link_to root_path, class: "flex items-center space-x-2" do %>
+  <div class="container mx-auto px-4 flex justify-between items-center h-16">
+    
+    <!-- Лого -->
+    <%= link_to root_path, class: "flex items-center space-x-2 hover:opacity-80 transition-opacity" do %>
       <i class="lucide lucide-camera text-2xl text-primary"></i>
-      <span class="text-xl font-bold">InstaRails</span>
+      <span class="text-xl font-bold text-primary">InstaRails</span>
     <% end %>
 
-    <div class="space-x-4 flex items-center">
+    <!-- Навигация -->
+    <div class="space-x-2 flex items-center">
       <% if user_signed_in? %>
-        <%= link_to 'New Post', new_post_path, class: "btn btn-sm btn-primary" if policy(Post).create? %>
-        <%= link_to current_user.email.split('@').first, edit_user_registration_path, class: "btn btn-sm btn-ghost" %>
-        <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-sm btn-outline" %>
+        <%= link_to current_user.email.split('@').first,
+              edit_user_registration_path,
+              class: "btn btn-sm btn-ghost hover:bg-base-200" %>
+
+        <%= button_to 'Logout',
+              destroy_user_session_path,
+              method: :delete,
+              class: "btn btn-sm btn-outline btn-error hover:opacity-90" %>
       <% else %>
-        <%= link_to 'Login', new_user_session_path, class: "btn btn-sm btn-primary" %>
-        <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-sm btn-outline" %>
+        <%= link_to 'Login',
+              new_user_session_path,
+              class: "btn btn-sm btn-primary" %>
+
+        <%= link_to 'Sign Up',
+              new_user_registration_path,
+              class: "btn btn-sm btn-outline btn-accent" %>
       <% end %>
     </div>
   </div>

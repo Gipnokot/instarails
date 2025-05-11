@@ -2,8 +2,16 @@ class LikesController < ApplicationController
   before_action :set_post
 
   def create
-    @like = @post.likes.create(user: current_user)
+    existing_like = @post.likes.find_by(user: current_user)
+
+    if existing_like
+      existing_like.destroy
+    else
+      @post.likes.create(user: current_user)
+    end
+
     @post.update_likes_count
+
     respond_to do |format|
       format.turbo_stream
       format.html { redirect_to @post }
