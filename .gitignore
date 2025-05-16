@@ -40,3 +40,5 @@
 !/app/assets/builds/.keep
 .env
 
+/config/credentials.yml.enc
+/config/database.yml

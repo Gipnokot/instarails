@@ -5,4 +5,3 @@
 @source "../../../app/views/**/*";
 
 @plugin "daisyui";
-@import "./pagy.tailwind.css";

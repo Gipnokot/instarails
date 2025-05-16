@@ -10,7 +10,7 @@ class LikesController < ApplicationController
       @post.likes.create(user: current_user)
     end
 
-    @post.update_likes_count
+    @post
 
     respond_to do |format|
       format.turbo_stream
@@ -22,7 +22,8 @@ class LikesController < ApplicationController
     @like = Like.find(params[:id])
     @post = @like.post
     @like.destroy
-    @post.update_likes_count
+    @post
+
     respond_to do |format|
       format.turbo_stream
       format.html { redirect_to @post }
@@ -34,4 +35,8 @@ class LikesController < ApplicationController
   def set_post
     @post = Post.find(params[:post_id])
   end
+
+  # def update_likes_count(post)
+  #   post.update_likes_count
+  # end
 end

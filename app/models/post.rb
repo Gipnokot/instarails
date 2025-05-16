@@ -12,9 +12,9 @@ class Post < ApplicationRecord
 
   scope :recent, -> { order(created_at: :desc) }
 
-  def update_likes_count
-    update(likes_count: likes.count)
-  end
+  # def update_likes_count
+  #   update(likes_count: likes.count)
+  # end
 end
 
 # == Schema Information

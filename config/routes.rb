@@ -14,6 +14,10 @@ Rails.application.routes.draw do
 
    mount Shrine.derivation_endpoint => "derivations"
 
+   if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+   end
+
   root "posts#index"
   get "/assets/tailwindcss", to: redirect("/assets/application.css")
   get "/manifest.json", to: "application#manifest"

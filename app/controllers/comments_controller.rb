@@ -31,7 +31,6 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = @post.comments.find(params[:id])
     @comment.destroy
     redirect_to @post, notice: "Комментарий удален."
   end

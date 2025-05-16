@@ -17,7 +17,7 @@ class CommentPolicy < ApplicationPolicy
 
   class Scope < ApplicationPolicy::Scope
     def resolve
-      scope.recent
+      scope.all
     end
   end
 

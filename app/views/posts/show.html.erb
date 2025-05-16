@@ -45,24 +45,26 @@
   <h2 class="text-lg font-semibold mb-4">Comments</h2>
 
   <!-- Список комментариев -->
-  <div class="space-y-4">
-    <% @post.comments.each do |comment| %>
-      <div class="bg-base-100 p-4 rounded-lg shadow-sm border">
-        <div class="flex justify-between items-center mb-2">
-          <div class="text-sm text-gray-500">
-            <strong><%= comment.user.email.split('@').first %></strong> — 
-            <%= l(comment.created_at, format: :short) %>
-          </div>
-          <% if policy(comment).destroy? %>
-            <%= button_to 'Удалить', post_comment_path(@post, comment), method: :delete,
-                          data: { turbo_confirm: "Удалить комментарий?" },
-                          class: "btn btn-xs btn-error btn-outline" %>
-          <% end %>
+<div class="space-y-4">
+  <% @post.comments.each do |comment| %>
+    <div class="bg-base-100 p-4 rounded-lg shadow-sm border">
+      <div class="flex justify-between items-center mb-2">
+        <div class="text-sm text-gray-500">
+          <strong><%= comment.user&.email&.split('@')&.first || "Гость" %></strong>
+          <%= l(comment.created_at, format: :short) if comment.created_at.present? %>
         </div>
-        <div class="text-gray-800"><%= simple_format(comment.body) %></div>
+        <% if policy(comment).destroy? %>
+          <%= button_to 'Удалить', post_comment_path(@post, comment), method: :delete,
+                        data: { turbo_confirm: "Удалить комментарий?" },
+                        class: "btn btn-xs btn-error btn-outline" %>
+        <% end %>
       </div>
-    <% end %>
-  </div>
+      <div class="text-gray-800">
+        <%= simple_format(comment.body) %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
   <!-- Форма добавления комментария -->
   <div class="mt-8">
