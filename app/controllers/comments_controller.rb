@@ -11,7 +11,6 @@ class CommentsController < ApplicationController
     @comment = @post.comments.build(comment_params)
     @comment.user = current_user
     authorize @comment
-  
     if @comment.save
       redirect_to @post, notice: "Comment was created"
     else
