@@ -2,8 +2,9 @@ class LikesController < ApplicationController
   before_action :set_post
 
   def create
-    @like = @post.likes.create(user: current_user)
-
+    @like = @post.likes.build(user: current_user)
+    authorize @like
+    @like.save
     respond_to do |format|
       format.turbo_stream
       format.html { redirect_to @post }
@@ -12,6 +13,7 @@ class LikesController < ApplicationController
 
   def destroy
     @like = @post.likes.find_by(id: params[:id])
+    authorize @like
     @like&.destroy
 
     respond_to do |format|

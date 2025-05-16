@@ -1,13 +1,13 @@
 <% like = like_for(post, current_user) %>
 
 <div id="like_button_for_post_<%= post.id %>" class="flex items-center gap-3 px-4 py-2">
-  <% if like %>
+  <% if like && policy(like).destroy? %>
     <%= button_to '💔', post_like_path(post, like),
           method: :delete,
           data: { turbo_stream: true },
           class: 'btn btn-sm btn-outline btn-error tooltip',
           title: 'Remove Like' %>
-  <% else %>
+  <% elsif policy(Like.new(post: post, user: current_user)).create? %>
     <%= button_to '❤️', post_likes_path(post),
           method: :post,
           data: { turbo_stream: true },
