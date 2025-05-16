@@ -11,10 +11,12 @@ class CommentsController < ApplicationController
     @comment = @post.comments.build(comment_params)
     @comment.user = current_user
     authorize @comment
+  
     if @comment.save
-      redirect_to @post, notice: "Комментарий добавлен."
+      redirect_to @post, notice: "Comment was created"
     else
-      redirect_to @post, alert: "Не удалось добавить комментарий."
+      @comments = @post.comments.includes(:user).order(created_at: :desc)
+      render "posts/show", status: :unprocessable_entity
     end
   end
 

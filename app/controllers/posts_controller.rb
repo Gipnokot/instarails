@@ -43,9 +43,9 @@ class PostsController < ApplicationController
   def destroy
     authorize @post
     if @post.destroy
-      redirect_to posts_url, notice: "Пост был удалён."
+      redirect_to posts_url, notice: "Post was deleted"
     else
-      redirect_to posts_url, alert: "Не удалось удалить пост."
+      redirect_to posts_url, alert: "Post was not deleted"
     end
   end
 

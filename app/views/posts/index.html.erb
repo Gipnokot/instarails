@@ -8,53 +8,55 @@
 
 <div class="max-w-xl mx-auto flex flex-col space-y-8">
   <% @posts.each do |post| %>
-    <div class="card bg-base-100 shadow-md border">
-      <!-- Header -->
-      <div class="flex items-center p-4 space-x-3">
-        <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-semibold">
-          <%= post.user.email.first.upcase %>
-        </div>
-        <span class="font-semibold"><%= post.user.email.split('@').first %></span>
-      </div>
-
-      <!-- Image -->
-      <% if post.image_url(:feed).present? %>
-        <%= link_to post_path(post) do %>
-          <%= image_tag post.image_url(:feed), class: "w-full object-cover aspect-square" %>
-        <% end %>
-      <% end %>
-
-      <!-- Caption -->
-      <div class="px-4 py-2">
-        <span class="font-semibold mr-2"><%= post.user.email.split('@').first %></span>
-        <%= truncate(post.title, length: 150) %>
-      </div>
-
-      <!-- Like-кнопки -->
-      <div id="like_buttons_<%= post.id %>">
-        <%= render partial: "posts/like_buttons", locals: { post: post } %>
-      </div>
-
-      <!-- Actions -->
-      <div class="flex items-center justify-between px-4 pb-4">
-        <%= link_to 'Comment', post_path(post), class: "btn btn-sm btn-outline btn-neutral" %>
-
-        <% if policy(post).update? || policy(post).destroy? %>
-          <div class="flex space-x-2">
-            <% if policy(post).update? %>
-              <%= link_to 'Edit', edit_post_path(post), class: "btn btn-sm btn-outline btn-primary" %>
-            <% end %>
-            <% if policy(post).destroy? %>
-              <%= button_to 'Delete', post_path(post),
-                    method: :delete,
-                    data: { confirm: 'Are you sure?' },
-                    class: "btn btn-sm btn-outline btn-error" %>
-            <% end %>
+    <% cache(post) do %>
+      <div class="card bg-base-100 shadow-md border">
+        <!-- Header -->
+        <div class="flex items-center p-4 space-x-3">
+          <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-semibold">
+            <%= post.user.email.first.upcase %>
           </div>
+          <span class="font-semibold"><%= username_from_email(post.user.email) %></span>
+        </div>
+
+        <!-- Image -->
+        <% if post.image_url(:feed).present? %>
+          <%= link_to post_path(post) do %>
+            <%= image_tag post.image_url(:feed), alt: post.title, loading: "lazy", class: "w-full object-cover aspect-square" %>
+          <% end %>
         <% end %>
+
+        <!-- Caption -->
+        <div class="px-4 py-2">
+          <span class="font-semibold mr-2"><%= username_from_email(post.user.email) %></span>
+          <%= truncate(post.title, length: 150) %>
+        </div>
+
+        <!-- Like-кнопки -->
+        <div id="like_buttons_<%= post.id %>">
+          <%= render partial: "posts/like_buttons", locals: { post: post } %>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-between px-4 pb-4">
+          <%= link_to 'Comment', post_path(post), class: "btn btn-sm btn-outline btn-neutral" %>
+
+          <% if policy(post).update? || policy(post).destroy? %>
+            <div class="flex space-x-2">
+              <% if policy(post).update? %>
+                <%= link_to 'Edit', edit_post_path(post), class: "btn btn-sm btn-outline btn-primary" %>
+              <% end %>
+              <% if policy(post).destroy? %>
+                <%= button_to 'Delete', post_path(post),
+                      method: :delete,
+                      data: { confirm: 'Are you sure?' },
+                      class: "btn btn-sm btn-outline btn-error" %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
       </div>
-    </div>
   <% end %>
+<% end %>
 
   <!-- Пагинация -->
   <% if @posts.total_pages > 1 %>

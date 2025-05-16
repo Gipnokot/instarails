@@ -1,6 +1,5 @@
 
 class ApplicationController < ActionController::Base
-  helper :likes
   allow_browser versions: :modern
 
   include Pundit::Authorization
