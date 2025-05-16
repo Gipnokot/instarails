@@ -1,6 +1,6 @@
-<% like = post.likes.find { |l| l.user_id == current_user.id } %>
+<% like = like_for(post, current_user) %>
 
-<div class="flex items-center gap-3 px-4 py-2">
+<div id="like_button_for_post_<%= post.id %>" class="flex items-center gap-3 px-4 py-2">
   <% if like %>
     <%= button_to '💔', post_like_path(post, like),
           method: :delete,
@@ -15,5 +15,5 @@
           title: 'Like post' %>
   <% end %>
 
-  <p class="text-sm text-gray-600"><%= pluralize(post.likes_count, 'Like') %></p>
+  <p class="text-sm text-red-600"><%= pluralize(post.likes_count, 'Like') %></p>
 </div>

@@ -2,15 +2,7 @@ class LikesController < ApplicationController
   before_action :set_post
 
   def create
-    existing_like = @post.likes.find_by(user: current_user)
-
-    if existing_like
-      existing_like.destroy
-    else
-      @post.likes.create(user: current_user)
-    end
-
-    @post
+    @like = @post.likes.create(user: current_user)
 
     respond_to do |format|
       format.turbo_stream
@@ -19,10 +11,8 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    @like = Like.find(params[:id])
-    @post = @like.post
-    @like.destroy
-    @post
+    @like = @post.likes.find_by(id: params[:id])
+    @like&.destroy
 
     respond_to do |format|
       format.turbo_stream
@@ -35,8 +25,4 @@ class LikesController < ApplicationController
   def set_post
     @post = Post.find(params[:post_id])
   end
-
-  # def update_likes_count(post)
-  #   post.update_likes_count
-  # end
 end

@@ -6,7 +6,6 @@ class CustomDeviseMailer < Devise::Mailer
   # Confirmation
   def confirmation_instructions(record, token, opts = {})
     Rails.logger.info ">> CUSTOM MAILER: enqueue confirmation for #{record.email}"
-    # класс-метод возвращает ActionMailer::MessageDelivery
     Devise::Mailer
       .confirmation_instructions(record, token, opts)
       .deliver_later(queue: :mailers)

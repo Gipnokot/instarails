@@ -7,6 +7,6 @@ class CreatePosts < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    add_check_constraint :posts, "char_length(body) <= 500", name: "body_length_check"
+    add_check_constraint :posts, "char_length(body) <= 500", name: "body_max_length"
   end
 end

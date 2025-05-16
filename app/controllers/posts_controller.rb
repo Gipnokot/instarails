@@ -9,6 +9,7 @@ class PostsController < ApplicationController
   def show
     authorize @post
     @comment = @post.comments.build
+    @comments = @post.comments.includes(:user).order(created_at: :desc)
   end
 
   def new
@@ -20,7 +21,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     authorize @post
     if @post.save
-      redirect_to @post, notice: "Пост успешно создан"
+      redirect_to @post, notice: "Post succesfully created"
     else
       render :new, status: :unprocessable_entity
     end
@@ -33,7 +34,7 @@ class PostsController < ApplicationController
   def update
     authorize @post
     if @post.update(post_params)
-      redirect_to @post, notice: "Пост успешно обновлён.", status: :see_other
+      redirect_to @post, notice: "Post succesfully updated", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -42,10 +43,7 @@ class PostsController < ApplicationController
   def destroy
     authorize @post
     if @post.destroy
-      respond_to do |format|
-        format.html { redirect_to posts_url, notice: "Пост был удалён." }
-        format.turbo_stream { render turbo_stream: turbo_stream.remove(@post) }
-      end
+      redirect_to posts_url, notice: "Пост был удалён."
     else
       redirect_to posts_url, alert: "Не удалось удалить пост."
     end

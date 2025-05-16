@@ -1,5 +1,5 @@
 class Comment < ApplicationRecord
-  belongs_to :user, optional: false
+  belongs_to :user
   belongs_to :post
 
   scope :recent, -> { order(created_at: :desc) }
@@ -25,6 +25,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_...  (post_id => posts.id)
+#  fk_rails_...  (post_id => posts.id) ON DELETE => cascade
 #  fk_rails_...  (user_id => users.id)
 #

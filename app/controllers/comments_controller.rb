@@ -10,6 +10,7 @@ class CommentsController < ApplicationController
   def create
     @comment = @post.comments.build(comment_params)
     @comment.user = current_user
+    authorize @comment
     if @comment.save
       redirect_to @post, notice: "Комментарий добавлен."
     else
@@ -24,7 +25,7 @@ class CommentsController < ApplicationController
   def update
     authorize @comment
     if @comment.update(comment_params)
-      redirect_to @post, notice: "Комментарий успешно обновлён.", status: :see_other
+      redirect_to @post, notice: "Comment was succesfully updated", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -32,7 +33,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to @post, notice: "Комментарий удален."
+    redirect_to @post, notice: "Comment was deleted"
   end
 
   private
