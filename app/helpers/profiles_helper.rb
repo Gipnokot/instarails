@@ -1,10 +1,10 @@
 module ProfilesHelper
-  def profile_avatar(user, size: "w-20 h-20", class_name: "")
+  def profile_avatar(user, size: "w-20 h-20", class_name: "", **options)
     return unless user.avatar_attacher&.stored?
-
-    image_tag user.avatar_url(:thumb), class: "#{size} rounded-full shadow #{class_name}"
+  
+    classes = "#{size} rounded-full shadow #{class_name} #{options[:class]}"
+    image_tag user.avatar_url(:thumb), class: classes.strip
   end
-
   def labeled_field(label, value)
     return if value.blank?
   

@@ -1,8 +1,7 @@
 <%= form_with model: post, local: true, html: { class: "space-y-6" } do |form| %>
   <% if post.errors.any? %>
     <div role="alert" class="alert alert-error shadow-lg">
-      <div>
-        <i class="lucide lucide-alert-circle"></i>
+      <div class="font-semibold">
         <span><%= pluralize(post.errors.count, "error") %> не позволили сохранить пост:</span>
       </div>
       <ul class="list-disc list-inside mt-2 text-sm text-red-100">
@@ -35,6 +34,6 @@
   </div>
 
   <div class="form-control">
-    <%= form.submit post.persisted? ? "Update post" : "Create post", class: "btn btn-primary w-full" %>
+    <%= form.submit post.persisted? ? "Update post" : "Create post", class: "btn btn-primary w-full font-semibold" %>
   </div>
 <% end %>

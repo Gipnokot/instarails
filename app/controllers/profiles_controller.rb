@@ -1,16 +1,13 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user
+  before_action :authorize_user, only: [:edit, :update]
 
-  def show
-    @user = current_user
-  end
+  def show; end
 
-  def edit
-    @user = current_user
-  end
+  def edit; end
 
   def update
-    @user = current_user
     if @user.update(user_params)
       redirect_to profile_path, notice: "Profile was updated"
     else
@@ -19,6 +16,14 @@ class ProfilesController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = current_user
+  end
+
+  def authorize_user
+    authorize @user, policy_class: ProfilePolicy
+  end
 
   def user_params
     params.require(:user).permit(:avatar, :username, :bio)

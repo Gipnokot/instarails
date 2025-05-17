@@ -1,0 +1,125 @@
+<!-- app/views/users/show.html.erb -->
+<div class="max-w-3xl mx-auto p-6 bg-white rounded-2xl shadow-lg mt-16">
+  <!-- Профиль -->
+  <div class="flex flex-col items-center text-center">
+    <% if @user.avatar_attacher&.stored? %>
+      <%= image_tag @user.avatar_url(:thumb),
+                    class: "w-28 h-28 rounded-full mb-4 border-4 border-primary object-cover" %>
+    <% else %>
+      <div class="w-28 h-28 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-bold text-6xl select-none mb-4">
+        <%= @user.email.first.upcase %>
+      </div>
+    <% end %>
+
+    <h1 class="text-3xl font-bold text-primary mb-2"><%= display_name(@user) %></h1>
+    <p class="text-gray-600 mb-4 max-w-xl px-4"><%= @user.bio.presence || "No bio available" %></p>
+
+  <!-- Статистика -->
+  <div class="flex space-x-6 mb-6">
+    <!-- Posts -->
+    <div class="text-center">
+      <p class="text-lg font-semibold"><%= @user.posts.count %></p>
+      <p class="text-gray-500 text-sm">Posts</p>
+    </div>
+
+    <!-- Followers -->
+    <div class="text-center">
+      <label for="followers-modal" class="cursor-pointer">
+        <p class="text-lg font-semibold"><%= @user.followers.count %></p>
+        <p class="text-gray-500 text-sm">Followers</p>
+      </label>
+    </div>
+
+    <!-- Following -->
+    <div class="text-center">
+      <label for="following-modal" class="cursor-pointer">
+        <p class="text-lg font-semibold"><%= @user.following.count %></p>
+        <p class="text-gray-500 text-sm">Following</p>
+      </label>
+    </div>
+  </div>
+
+  <!-- Блок кнопки Follow/Unfollow -->
+  <% if user_signed_in? && policy(@user).follow? %>
+    <div class="flex justify-center mb-6">
+      <% if current_user.following.include?(@user) %>
+        <%= button_to "Unfollow", user_follow_path(@user), method: :delete, class: "btn btn-outline px-6 py-2 rounded-lg" %>
+      <% else %>
+        <%= button_to "Follow", user_follow_path(@user), method: :post, class: "btn btn-primary px-6 py-2 rounded-lg" %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- Модалка Followers -->
+  <input type="checkbox" id="followers-modal" class="modal-toggle" />
+  <div class="modal">
+    <div class="modal-box max-w-md">
+      <h3 class="font-bold text-lg mb-4">Followers</h3>
+      <ul class="space-y-3 max-h-60 overflow-y-auto">
+        <% @user.followers.each do |f| %>
+          <li class="flex items-center space-x-3">
+            <% if f.avatar_attacher&.stored? %>
+              <%= image_tag f.avatar_url(:thumb), class: "w-8 h-8 rounded-full object-cover" %>
+            <% else %>
+              <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-gray-600">
+                <%= f.email.first.upcase %>
+              </div>
+            <% end %>
+            <%= link_to display_name(f), user_path(f), class: "font-medium hover:underline" %>
+          </li>
+        <% end %>
+      </ul>
+      <div class="modal-action">
+        <label for="followers-modal" class="btn">Close</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модалка Following -->
+  <input type="checkbox" id="following-modal" class="modal-toggle" />
+  <div class="modal">
+    <div class="modal-box max-w-md">
+      <h3 class="font-bold text-lg mb-4">Following</h3>
+      <ul class="space-y-3 max-h-60 overflow-y-auto">
+        <% @user.following.each do |u| %>
+          <li class="flex items-center space-x-3">
+            <% if u.avatar_attacher&.stored? %>
+              <%= image_tag u.avatar_url(:thumb), class: "w-8 h-8 rounded-full object-cover" %>
+            <% else %>
+              <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-gray-600">
+                <%= u.email.first.upcase %>
+              </div>
+            <% end %>
+            <%= link_to display_name(u), user_path(u), class: "font-medium hover:underline" %>
+          </li>
+        <% end %>
+      </ul>
+      <div class="modal-action">
+        <label for="following-modal" class="btn">Close</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Сетка миниатюр постов -->
+  <% if @user.posts.any? %>
+    <div class="grid grid-cols-3 gap-1 md:gap-2 mt-8">
+      <% @user.posts.order(created_at: :desc).each do |post| %>
+        <div class="relative w-full" style="padding-top: 100%;">
+          <%= link_to post_path(post), class: "absolute inset-0 block overflow-hidden group" do %>
+            <% if post.image_url(:feed).present? %>
+              <%= image_tag post.image_url(:feed),
+                            alt: post.title,
+                            class: "w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-80" %>
+            <% else %>
+              <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 font-semibold text-sm">
+                No image
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-gray-500 mt-8 text-center italic">This user hasn’t posted anything yet.</p>
+  <% end %>
+</div>

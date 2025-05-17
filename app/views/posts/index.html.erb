@@ -1,68 +1,67 @@
-<h1 class="text-3xl font-bold mb-6 text-center">Posts</h1>
+<h1 class="text-4xl font-extrabold mb-8 text-center text-primary">Feed</h1>
 
-<% if policy(Post).create? %>
-  <div class="mb-6 text-center">
-    <%= link_to 'New Post', new_post_path, class: "btn btn-primary" %>
-  </div>
-<% end %>
-
-<div class="max-w-xl mx-auto flex flex-col space-y-8">
+<div class="max-w-xl mx-auto flex flex-col space-y-10">
   <% @posts.each do |post| %>
     <% cache(post) do %>
-      <div class="card bg-base-100 shadow-md border">
-
-        <div class="flex items-center p-4 space-x-3">
+      <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+        
+        <div class="flex items-center p-5 space-x-4 border-b border-gray-100">
           <% if post.user.avatar_attacher&.stored? %>
-            <%= image_tag post.user.avatar_url(:thumb), class: "w-10 h-10 rounded-full object-cover" %>
+            <%= link_to user_path(post.user), class: "block" do %>
+              <%= image_tag post.user.avatar_url(:thumb), class: "w-12 h-12 rounded-full object-cover border-2 border-primary" %>
+            <% end %>
           <% else %>
-            <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-semibold">
-              <%= post.user.email.first.upcase %>
-            </div>
+            <%= link_to user_path(post.user), class: "block" do %>
+              <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-bold text-xl select-none">
+                <%= post.user.email.first.upcase %>
+              </div>
+            <% end %>
           <% end %>
-          <span class="font-semibold"><%= display_name(post.user) %></span>
+
+          <%= link_to display_name(post.user), user_path(post.user),
+                      class: "font-semibold text-lg text-gray-900 hover:underline" %>
         </div>
 
         <% if post.image_url(:feed).present? %>
-          <%= link_to post_path(post) do %>
-            <%= image_tag post.image_url(:feed), alt: post.title, loading: "lazy", class: "w-full object-cover aspect-square" %>
+          <%= link_to post_path(post), class: "block" do %>
+            <%= image_tag post.image_url(:feed), alt: post.title, loading: "lazy", class: "w-full object-cover aspect-square hover:scale-105 transition-transform duration-300" %>
           <% end %>
         <% end %>
 
-        <div class="px-4 py-2">
-          <span class="font-semibold mr-2"><%= username_from_email(post.user.email) %></span>
-          <%= truncate(post.title, length: 150) %>
+        <div class="px-6 py-4">
+          <p class="text-gray-700 text-base leading-relaxed"><%= truncate(post.title, length: 150) %></p>
         </div>
 
-        <div id="like_buttons_<%= post.id %>">
+        <div id="like_buttons_<%= post.id %>" class="px-6 pb-3">
           <%= render partial: "posts/like_buttons", locals: { post: post } %>
         </div>
 
-        <div class="flex items-center justify-between px-4 pb-4">
-          <%= link_to 'Comment', post_path(post), class: "btn btn-sm btn-outline btn-neutral" %>
+        <div class="flex items-center justify-between px-6 pb-6">
+          <%= link_to 'Comment', post_path(post), class: "btn btn-sm btn-outline btn-neutral font-medium tracking-wide" %>
 
           <% if policy(post).update? || policy(post).destroy? %>
-            <div class="flex space-x-2">
+            <div class="flex space-x-3">
               <% if policy(post).update? %>
-                <%= link_to 'Edit', edit_post_path(post), class: "btn btn-sm btn-outline btn-primary" %>
+                <%= link_to 'Edit', edit_post_path(post), class: "btn btn-sm btn-outline btn-primary font-medium tracking-wide" %>
               <% end %>
               <% if policy(post).destroy? %>
                 <%= button_to 'Delete', post_path(post),
                       method: :delete,
                       data: { confirm: 'Are you sure?' },
-                      class: "btn btn-sm btn-outline btn-error" %>
+                      class: "btn btn-sm btn-outline btn-error font-medium tracking-wide" %>
               <% end %>
             </div>
           <% end %>
         </div>
       </div>
-  <% end %>
-<% end %>
-
-  <% if @posts.total_pages > 1 %>
-    <div class="mt-10 flex justify-center">
-      <div class="join">
-        <%= paginate @posts, theme: 'tailwind' %>
-      </div>
-    </div>
+    <% end %>
   <% end %>
 </div>
+
+<% if @posts.total_pages > 1 %>
+  <div class="mt-12 flex justify-center">
+    <div class="join">
+      <%= paginate @posts, theme: 'tailwind' %>
+    </div>
+  </div>
+<% end %>

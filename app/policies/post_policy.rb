@@ -1,5 +1,7 @@
 class PostPolicy < ApplicationPolicy
-  def index?; true; end
+  def index?
+    true
+  end
 
   def show?
     true
@@ -10,11 +12,11 @@ class PostPolicy < ApplicationPolicy
   end
 
   def update?
-    owner?
+    user_is_owner?
   end
 
   def destroy?
-    owner?
+    user_is_owner?
   end
 
   class Scope < ApplicationPolicy::Scope
@@ -25,7 +27,7 @@ class PostPolicy < ApplicationPolicy
 
   private
 
-  def owner?
+  def user_is_owner?
     user.present? && record.user == user
   end
 end

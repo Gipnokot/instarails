@@ -4,6 +4,12 @@ Rails.application.routes.draw do
   devise_for :users
   resource :profile, only: [:show, :edit, :update]
 
+  resources :users, only: [:show] do
+    resource :follow, only: [:create, :destroy]
+  end
+
+  resources :users, only: [:show]
+  
   resources :posts do
     resources :comments, only: [ :new, :create, :edit, :update, :destroy ]
     resources :likes, only: [ :create, :destroy ]
