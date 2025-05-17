@@ -7,6 +7,7 @@ gem "puma", ">= 5.0"
 gem "sidekiq", "~> 8.0", ">= 8.0.3"
 gem "kaminari", "~> 1.2", ">= 1.2.2"
 gem "kaminari-tailwind"
+gem 'redis', '~> 5.4'
 
 # --- Frontend ---
 gem "importmap-rails"
