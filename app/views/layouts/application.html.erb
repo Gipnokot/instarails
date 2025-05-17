@@ -23,20 +23,20 @@
     <%= javascript_importmap_tags "application" %>
   </head>
 
-  <body class="bg-base-100 text-base-content">
+  <body class="bg-base-100 text-base-content flex flex-col min-h-screen">
     <!-- Header -->
     <%= render "shared/header" %>
 
     <!-- Flash messages -->
     <div class="container mx-auto px-4 mt-4">
       <% if notice %>
-        <div class="alert alert-success shadow-lg mb-4">
+        <div class="alert alert-success shadow-lg mb-4 flex items-center gap-2">
           <i class="lucide lucide-check-circle"></i>
           <span><%= notice %></span>
         </div>
       <% end %>
       <% if alert %>
-        <div class="alert alert-error shadow-lg mb-4">
+        <div class="alert alert-error shadow-lg mb-4 flex items-center gap-2">
           <i class="lucide lucide-alert-circle"></i>
           <span><%= alert %></span>
         </div>
@@ -44,11 +44,24 @@
     </div>
 
     <!-- Main content -->
-    <main class="container mx-auto px-5 mt-8">
+    <main class="container mx-auto px-4 flex-grow">
       <%= yield %>
     </main>
 
     <!-- Footer -->
-    <%= render "shared/footer" %>
+    <footer class="footer footer-center p-10 bg-base-200 text-base-content mt-auto">
+      <aside>
+        <i class="lucide lucide-heart text-red-500 text-3xl mb-2"></i>
+        <p class="font-bold text-lg">InstaRails</p>
+        <p class="text-sm">&copy; <%= Time.current.year %> — Сделано на Ruby on Rails.</p>
+      </aside>
+      <nav>
+        <div class="grid grid-flow-col gap-4">
+          <%= link_to 'Главная', root_path, class: "link link-hover" %>
+          <%= link_to 'О проекте', '#', class: "link link-hover" %>
+          <%= link_to 'GitHub', 'https://github.com/', class: "link link-hover", target: "_blank" %>
+        </div>
+      </nav>
+    </footer>
   </body>
 </html>

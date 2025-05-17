@@ -2,6 +2,7 @@ require "sidekiq/web"
 
 Rails.application.routes.draw do
   devise_for :users
+  resource :profile, only: [:show, :edit, :update]
 
   resources :posts do
     resources :comments, only: [ :new, :create, :edit, :update, :destroy ]

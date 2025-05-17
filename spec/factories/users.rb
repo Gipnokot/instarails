@@ -5,6 +5,9 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  avatar                 :string
+#  avatar_data            :jsonb
+#  bio                    :text
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime
@@ -22,6 +25,7 @@
 #  sign_in_count          :integer          default(0), not null
 #  unconfirmed_email      :string
 #  unlock_token           :string
+#  username               :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #

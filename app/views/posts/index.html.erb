@@ -12,10 +12,14 @@
       <div class="card bg-base-100 shadow-md border">
         <!-- Header -->
         <div class="flex items-center p-4 space-x-3">
-          <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-semibold">
-            <%= post.user.email.first.upcase %>
-          </div>
-          <span class="font-semibold"><%= username_from_email(post.user.email) %></span>
+          <% if post.user.avatar_attacher&.stored? %>
+            <%= image_tag post.user.avatar_url(:thumb), class: "w-10 h-10 rounded-full object-cover" %>
+          <% else %>
+            <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-semibold">
+              <%= post.user.email.first.upcase %>
+            </div>
+          <% end %>
+          <span class="font-semibold"><%= display_name(post.user) %></span>
         </div>
 
         <!-- Image -->

@@ -1,0 +1,40 @@
+<div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg mt-16 text-center">
+  <h1 class="text-3xl font-semibold mb-6 text-primary">Your Profile</h1>
+
+  <div class="flex justify-center mb-6">
+    <%= profile_avatar(@user) %>
+  </div>
+
+  <% if @user.username.present? %>
+    <p class="text-lg font-medium mb-2">
+      <span class="font-semibold text-secondary">Name:</span>
+      <span class="text-gray-700"><%= @user.username %></span>
+    </p>
+  <% end %>
+
+  <% if @user.bio.present? %>
+    <div class="mb-6">
+      <span class="font-semibold text-secondary">Bio:</span>
+      <span class="text-gray-700"><%= @user.bio %></span>
+    </div>
+  <% end %>
+
+  <div class="mb-8">
+    <%= link_to "Edit Profile", edit_profile_path, class: "btn btn-primary btn-wide" %>
+  </div>
+
+  <!-- Settings section -->
+  <div class="text-left">
+    <h2 class="text-2xl font-semibold mb-4 text-primary">Settings</h2>
+    <ul class="space-y-3">
+      <li>
+        <%= link_to "Change Email", edit_user_registration_path,
+                    class: "btn btn-outline btn-sm w-full text-left hover:bg-primary hover:text-white transition-colors" %>
+      </li>
+      <li>
+        <%= link_to "Change Password", edit_user_registration_path,
+                    class: "btn btn-outline btn-sm w-full text-left hover:bg-primary hover:text-white transition-colors" %>
+      </li>
+    </ul>
+  </div>
+</div>
