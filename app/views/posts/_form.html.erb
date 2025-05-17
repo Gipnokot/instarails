@@ -13,7 +13,6 @@
     </div>
   <% end %>
 
-  <!-- Title -->
   <div class="form-control">
     <%= form.label :title, class: "label" do %>
       <span class="label-text">Title</span>
@@ -21,7 +20,6 @@
     <%= form.text_field :title, class: "input input-bordered w-full" %>
   </div>
 
-  <!-- Body -->
   <div class="form-control">
     <%= form.label :body, class: "label" do %>
       <span class="label-text">Post description</span>
@@ -29,7 +27,6 @@
     <%= form.text_area :body, rows: 4, class: "textarea textarea-bordered w-full" %>
   </div>
 
-  <!-- Image Upload -->
   <div class="form-control">
     <%= form.label :image, class: "label" do %>
       <span class="label-text">Picture</span>
@@ -37,7 +34,6 @@
     <%= form.file_field :image, direct_upload: true, class: "file-input file-input-bordered w-full" %>
   </div>
 
-  <!-- Submit Button -->
   <div class="form-control">
     <%= form.submit post.persisted? ? "Update post" : "Create post", class: "btn btn-primary w-full" %>
   </div>

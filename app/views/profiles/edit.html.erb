@@ -14,7 +14,6 @@
         </div>
       <% end %>
 
-      <!-- Avatar upload -->
       <div class="form-control w-full">
         <%= f.label :avatar, "Upload new avatar", class: "label font-medium" %>
         <%= f.file_field :avatar, class: "file-input file-input-bordered w-full" %>
@@ -27,19 +26,16 @@
         <% end %>
       </div>
 
-      <!-- Username -->
       <div class="form-control w-full">
         <%= f.label :username, "Name", class: "label font-medium" %>
         <%= f.text_field :username, class: "input input-bordered w-full" %>
       </div>
 
-      <!-- Bio -->
       <div class="form-control w-full">
         <%= f.label :bio, "Bio / About You", class: "label font-medium" %>
         <%= f.text_area :bio, rows: 4, class: "textarea textarea-bordered w-full" %>
       </div>
 
-      <!-- Submit -->
       <div class="form-control w-full">
         <%= f.submit "Update Profile", class: "btn btn-primary w-full" %>
       </div>
