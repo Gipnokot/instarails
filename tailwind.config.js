@@ -1,15 +1,26 @@
-// tailwind.config.js
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: [
-    "./app/views/**/*.{html,erb}",
-    "./app/helpers/**/*.rb",
-    "./app/javascript/**/*.js",
-    "./app/assets/tailwind/**/*.js"
+    './public/*.html',
+    './app/helpers/**/*.rb',
+    './app/javascript/**/*.js',
+    './app/views/**/*.{erb,haml,html,slim}',
+    './app/components/**/*.{erb,haml,html,slim,rb}'
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      },
+    },
   },
   plugins: [
-    require("./app/assets/tailwind/daisyui.js"),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    require('daisyui')
   ],
+  daisyui: {
+    themes: ["light", "dark"],
+  }
 }

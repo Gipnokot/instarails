@@ -1,34 +1,29 @@
 {
-  "dependencies": {
-    "@tailwindcss/cli": "^4.1.7",
-    "autoprefixer": "^10.4.21",
-    "lucide": "^0.509.0",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.7"
-  },
-  "devDependencies": {
-    "daisyui": "^5.0.35"
-  },
   "name": "instarails",
   "version": "1.0.0",
-  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
-  "main": "tailwind.config.js",
-  "directories": {
-    "lib": "lib"
+  "private": true,
+  "dependencies": {
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.9",
+    "autoprefixer": "^10.4.16",
+    "daisyui": "^5.0.35",
+    "lucide": "^0.509.0",
+    "postcss": "^8.4.31",
+    "postcss-import": "^15.1.0",
+    "tailwindcss": "^3.4.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css": "npx @tailwindcss/cli -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify",
+    "watch:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --watch",
+    "build": "yarn build:css",
+    "start": "yarn watch:css"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Gipnokot/instarails.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Gipnokot/instarails/issues"
-  },
-  "homepage": "https://github.com/Gipnokot/instarails#readme"
+  "browserslist": [
+    "defaults",
+    "not IE 11"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  }
 }

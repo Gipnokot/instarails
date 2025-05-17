@@ -1,1 +1,110 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: 79 70 229;  /* indigo-600 */
+    --color-secondary: 99 102 241; /* indigo-500 */
+    --color-accent: 249 115 22; /* orange-500 */
+    --color-danger: 239 68 68; /* red-500 */
+    --color-success: 16 185 129; /* emerald-500 */
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-base-100 text-base-content antialiased;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+
+  /* Стили для выделенного текста */
+  ::selection {
+    @apply bg-primary text-white;
+  }
+}
+
+@layer components {
+  /* Кнопки */
+  .btn {
+    @apply normal-case;
+  }
+
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-focus border-primary;
+  }
+
+  /* Карточки */
+  .card {
+    @apply bg-base-100 shadow-md rounded-lg overflow-hidden;
+  }
+
+  /* Формы */
+  .input {
+    @apply bg-base-200 border-base-300 focus:border-primary focus:ring-primary;
+  }
+
+  /* Навигация */
+  .nav-link {
+    @apply text-base-content hover:text-primary transition-colors;
+  }
+
+  /* Анимации */
+  .fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+@layer utilities {
+  /* Кастомные утилиты */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .scroll-mt-header {
+    scroll-margin-top: 6rem;
+  }
+
+  /* Для анимаций */
+  .transition-fast {
+    transition: all 0.15s ease-in-out;
+  }
+
+  .transition-slow {
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+/* DaisyUI кастомные стили */
+[data-theme="light"] {
+  --p: 79 70 229; /* primary */
+  --s: 99 102 241; /* secondary */
+  --a: 249 115 22; /* accent */
+}
+
+[data-theme="dark"] {
+  --p: 99 102 241; /* primary */
+  --s: 79 70 229; /* secondary */
+  --a: 249 115 22; /* accent */
+}
+
+/* Кастомные компоненты DaisyUI */
+.select:focus {
+  box-shadow: 0 0 0 2px hsl(var(--bc)), 0 0 0 4px hsl(var(--p));
+}
+
+.tooltip:before {
+  @apply text-sm font-normal;
+}
+
+/* Фикс для Turbo Frame */
+turbo-frame {
+  @apply contents;
+}

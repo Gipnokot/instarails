@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title><%= content_for(:title) || "Instarails" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -11,15 +11,19 @@
 
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <%= favicon_link_tag "icon.png" %>
+    <link rel="icon" href="<%= asset_path('icon.svg') %>" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="<%= asset_path('icon.png') %>">
+
+    <!-- Preload important assets -->
+    <%= preload_link_tag "application.css", as: "style" %>
+    <%= preload_link_tag "application.js", as: "script" %>
 
     <!-- Styles -->
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
 
     <!-- JS -->
-    <%= javascript_importmap_tags "application" %>
+    <%= javascript_importmap_tags %>
   </head>
 
   <body class="bg-base-100 text-base-content flex flex-col min-h-screen">
@@ -57,8 +61,8 @@
       <nav>
         <div class="grid grid-flow-col gap-4">
           <%= link_to 'Главная', root_path, class: "link link-hover" %>
-          <%= link_to 'О проекте', '#', class: "link link-hover" %>
-          <%= link_to 'GitHub', 'https://github.com/Gipnokot/instarails/', class: "link link-hover", target: "_blank" %>
+          <%= link_to 'О проекте', about_path, class: "link link-hover" %>
+          <%= link_to 'GitHub', 'https://github.com/Gipnokot/instarails/', class: "link link-hover", target: "_blank", rel: "noopener noreferrer" %>
         </div>
       </nav>
     </footer>
