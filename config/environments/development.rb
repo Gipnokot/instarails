@@ -9,8 +9,12 @@ Rails.application.configure do
   config.enable_reloading = true
 
   # letter opener configuration
-  config.action_mailer.delivery_method = :letter_opener_web
+  config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
+  config.active_job.queue_adapter = :sidekiq
+  config.action_mailer.deliver_later_queue_name = :mailers
+
+
 
   LetterOpener.configure do |config|
     # To overrider the location for message storage.
