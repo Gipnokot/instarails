@@ -1,10 +1,10 @@
 {
   "dependencies": {
-    "@tailwindcss/cli": "^4.1.6",
+    "@tailwindcss/cli": "^4.1.7",
     "autoprefixer": "^10.4.21",
     "lucide": "^0.509.0",
     "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.6"
+    "tailwindcss": "^4.1.7"
   },
   "devDependencies": {
     "daisyui": "^5.0.35"
@@ -17,7 +17,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "npx @tailwindcss/cli -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
   },
   "repository": {
     "type": "git",

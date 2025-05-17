@@ -8,6 +8,7 @@ gem "sidekiq", "~> 8.0", ">= 8.0.3"
 gem "kaminari", "~> 1.2", ">= 1.2.2"
 gem "kaminari-tailwind"
 gem 'redis', '~> 5.4'
+gem 'cssbundling-rails', '~> 1.4', '>= 1.4.3'
 
 # --- Frontend ---
 gem "importmap-rails"
