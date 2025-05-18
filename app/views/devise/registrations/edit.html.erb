@@ -9,6 +9,16 @@
   </div>
 
   <div>
+    <%= f.label :username, class: "block text-sm font-semibold mb-1" %>
+    <%= f.text_field :username, class: "input input-bordered w-full" %>
+  </div>
+
+  <div>
+    <%= f.label :bio, class: "block text-sm font-semibold mb-1" %>
+    <%= f.text_area :bio, rows: 4, class: "textarea textarea-bordered w-full" %>
+  </div>
+
+  <div>
     <%= f.label :password, class: "block text-sm font-semibold mb-1" %>
     <p class="text-xs italic text-gray-500 mb-1">(leave blank if you don't want to change it)</p>
     <%= f.password_field :password, autocomplete: "new-password", class: "input input-bordered w-full" %>
