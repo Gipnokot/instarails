@@ -3,24 +3,22 @@
   <head>
     <title><%= content_for(:title) || "Instarails" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= yield :head %>
 
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json">
 
-    <!-- Preload important assets -->
+    <!-- Preload стилей -->
     <%= preload_link_tag "application.css", as: "style" %>
+    <%= preload_link_tag "tailwind.css",    as: "style" %>
+
+    <!-- Подключение скомпилированных стилей -->
+    <%= stylesheet_link_tag "application", "tailwind", "data-turbo-track": "reload" %>
+
+    <!-- Preload и подключение JS через Importmap -->
     <%= preload_link_tag "application.js", as: "script" %>
-
-    <!-- Styles -->
-    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
-
-    <!-- JS -->
     <%= javascript_importmap_tags %>
   </head>
 
