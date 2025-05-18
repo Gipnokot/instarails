@@ -12,10 +12,6 @@
 
     <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-
-    <!-- Preload и подключение JS через Importmap -->
-    <%= preload_link_tag "application.js", as: "script" %>
-    <%= javascript_importmap_tags %>
   </head>
 
   <body class="bg-base-100 text-base-content flex flex-col min-h-screen">
