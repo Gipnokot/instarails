@@ -11,9 +11,7 @@
 
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json">
-    <%= favicon_link_tag "icon.png" %>
     <link rel="icon" href="<%= asset_path('icon.svg') %>" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="<%= asset_path('icon.png') %>">
 
     <!-- Preload important assets -->
     <%= preload_link_tag "application.css", as: "style" %>
