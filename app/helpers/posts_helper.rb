@@ -4,6 +4,6 @@ module PostsHelper
   end
 
   def display_name(user)
-    user.username.presence || user.email
+    user.try(:username).presence || user.email
   end
 end
