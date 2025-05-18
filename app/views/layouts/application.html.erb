@@ -12,7 +12,7 @@
 
     <!-- Preload стилей -->
     <%= preload_link_tag "application.css", as: "style" %>
-    <%= preload_link_tag "tailwind.css",    as: "style" %>
+    <%= javascript_importmap_tags %>
 
     <!-- Подключение скомпилированных стилей -->
     <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
