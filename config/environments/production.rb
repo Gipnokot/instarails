@@ -15,13 +15,13 @@ Rails.application.configure do
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
-  config.active_job.queue_adapter = :sidekiq
-  config.action_mailer.deliver_later_queue_name = :mailers
-  config.action_mailer.delivery_method = :smtp
+  config.active_job.queue_adapter = :async
   config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { host: ENV['APP_HOST'] }
+  config.action_mailer.delivery_method = :smtp
 
-  config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'] }
+  config.cache_store = :memory_store
 
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',

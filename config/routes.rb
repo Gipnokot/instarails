@@ -15,8 +15,12 @@ Rails.application.routes.draw do
     resources :likes, only: [ :create, :destroy ]
   end
 
-  authenticate :user do
-    mount Sidekiq::Web => "/sidekiq"
+  if Rails.env.development?
+    authenticate :user do
+      mount Sidekiq::Web => "/sidekiq"
+    end
+    
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
 
    mount Shrine.derivation_endpoint => "derivations"
@@ -28,4 +32,5 @@ Rails.application.routes.draw do
   root "posts#index"
   get "/assets/tailwindcss", to: redirect("/assets/application.css")
   get "/manifest.json", to: "application#manifest"
+  get '/manifest', to: 'application#manifest'
 end
