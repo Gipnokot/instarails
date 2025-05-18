@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: instarails
+    env: ruby
+    buildCommand: |
+      bundle install --jobs 20 --retry 5 \
+      && yarn install \
+      && bundle exec rake assets:precompile
+    releaseCommand: |
+      bundle exec rails db:migrate
+    startCommand: bundle exec rails server -p $PORT -e $RAILS_ENV
+
+  - type: worker
+    name: instarails-worker
+    env: ruby
+    startCommand: bundle exec sidekiq -C config/sidekiq.yml
