@@ -1,26 +1,14 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
-
 module.exports = {
   content: [
-    './public/*.html',
+    './app/**/*.html.erb',
     './app/helpers/**/*.rb',
-    './app/javascript/**/*.js',
-    './app/views/**/*.{erb,haml,html,slim}',
-    './app/components/**/*.{erb,haml,html,slim,rb}'
+    './app/assets/stylesheets/**/*.css',
+    './app/javascript/**/*.js'
   ],
   theme: {
-    extend: {
-      fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      },
-    },
+    extend: {},
   },
   plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-    require('daisyui')
+    require('daisyui'),
   ],
-  daisyui: {
-    themes: ["light", "dark"],
-  }
 }
