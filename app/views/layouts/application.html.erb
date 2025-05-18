@@ -17,6 +17,7 @@
     <%= preload_link_tag "application.js", as: "script" %>
 
     <!-- Styles -->
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
 
     <!-- JS -->
@@ -58,7 +59,6 @@
       <nav>
         <div class="grid grid-flow-col gap-4">
           <%= link_to 'Главная', root_path, class: "link link-hover" %>
-          <%= link_to 'О проекте', about_path, class: "link link-hover" %>
           <%= link_to 'GitHub', 'https://github.com/Gipnokot/instarails/', class: "link link-hover", target: "_blank", rel: "noopener noreferrer" %>
         </div>
       </nav>
