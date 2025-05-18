@@ -18,15 +18,18 @@ Rails.application.configure do
   config.active_job.queue_adapter = :sidekiq
   config.action_mailer.deliver_later_queue_name = :mailers
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_url_options = { host: ENV['APP_HOST'] }
 
   config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'] }
 
   config.action_mailer.smtp_settings = {
-    address: ENV["SMTP_SERVER"],
-    port: ENV["SMTP_PORT"],
-    user_name: ENV["SMTP_USERNAME"],
-    password: ENV["SMTP_PASSWORD"],
-    authentication: "plain",
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'gmail.com',
+    user_name: ENV['SMTP_USERNAME'],
+    password: ENV['SMTP_PASSWORD'],
+    authentication: 'plain',
     enable_starttls_auto: true
   }
   # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
