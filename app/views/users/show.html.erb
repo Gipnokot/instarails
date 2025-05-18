@@ -13,9 +13,10 @@
 
     <h1 class="text-3xl font-bold text-primary mb-2"><%= display_name(@user) %></h1>
     <p class="text-gray-600 mb-4 max-w-xl px-4"><%= @user.bio.presence || "No bio available" %></p>
+  </div>
 
   <!-- Статистика -->
-  <div class="flex space-x-6 mb-6">
+  <div class="flex space-x-6 mb-6 justify-center">
     <!-- Posts -->
     <div class="text-center">
       <p class="text-lg font-semibold"><%= @user.posts.count %></p>
@@ -39,8 +40,8 @@
     </div>
   </div>
 
-  <!-- Блок кнопки Follow/Unfollow -->
-  <% if user_signed_in? && policy(@user).follow? %>
+  <!-- Кнопка Follow/Unfollow -->
+  <% if user_signed_in? && policy(@user).follow? && current_user != @user %>
     <div class="flex justify-center mb-6">
       <% if current_user.following.include?(@user) %>
         <%= button_to "Unfollow", user_follow_path(@user), method: :delete, class: "btn btn-outline px-6 py-2 rounded-lg" %>
@@ -56,16 +57,16 @@
     <div class="modal-box max-w-md">
       <h3 class="font-bold text-lg mb-4">Followers</h3>
       <ul class="space-y-3 max-h-60 overflow-y-auto">
-        <% @user.followers.each do |f| %>
+        <% @user.followers.each do |follower| %>
           <li class="flex items-center space-x-3">
-            <% if f.avatar_attacher&.stored? %>
-              <%= image_tag f.avatar_url(:thumb), class: "w-8 h-8 rounded-full object-cover" %>
+            <% if follower.avatar_attacher&.stored? %>
+              <%= image_tag follower.avatar_url(:thumb), class: "w-8 h-8 rounded-full object-cover" %>
             <% else %>
               <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-gray-600">
-                <%= f.email.first.upcase %>
+                <%= follower.email.first.upcase %>
               </div>
             <% end %>
-            <%= link_to display_name(f), user_path(f), class: "font-medium hover:underline" %>
+            <%= link_to display_name(follower), user_path(follower), class: "font-medium hover:underline" %>
           </li>
         <% end %>
       </ul>
@@ -81,16 +82,16 @@
     <div class="modal-box max-w-md">
       <h3 class="font-bold text-lg mb-4">Following</h3>
       <ul class="space-y-3 max-h-60 overflow-y-auto">
-        <% @user.following.each do |u| %>
+        <% @user.following.each do |followed_user| %>
           <li class="flex items-center space-x-3">
-            <% if u.avatar_attacher&.stored? %>
-              <%= image_tag u.avatar_url(:thumb), class: "w-8 h-8 rounded-full object-cover" %>
+            <% if followed_user.avatar_attacher&.stored? %>
+              <%= image_tag followed_user.avatar_url(:thumb), class: "w-8 h-8 rounded-full object-cover" %>
             <% else %>
               <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-gray-600">
-                <%= u.email.first.upcase %>
+                <%= followed_user.email.first.upcase %>
               </div>
             <% end %>
-            <%= link_to display_name(u), user_path(u), class: "font-medium hover:underline" %>
+            <%= link_to display_name(followed_user), user_path(followed_user), class: "font-medium hover:underline" %>
           </li>
         <% end %>
       </ul>

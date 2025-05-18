@@ -1,16 +1,16 @@
-<% profile_policy = ProfilePolicy.new(current_user, @user) %>
-
 <div class="max-w-3xl mx-auto p-6 bg-white rounded-2xl shadow-lg mt-16">
   <div class="flex flex-col items-center text-center">
     <%= profile_avatar(@user, class: "w-28 h-28 rounded-full mb-4 border-4 border-primary object-cover") %>
 
-    <h1 class="text-2xl font-bold text-primary mb-1"><%= @user.username %></h1>
+    <h1 class="text-2xl font-bold text-primary mb-1">
+      <%= @user.username.presence || "New User" %>
+    </h1>
 
     <% if @user.bio.present? %>
       <p class="text-gray-600 mb-4 px-4"><%= @user.bio %></p>
     <% end %>
 
-    <% if profile_policy.edit? %>
+    <% if ProfilePolicy.new(current_user, @user).edit? %>
       <div class="mb-8 flex justify-center space-x-6">
         <%= link_to "Edit Profile", edit_profile_path, class: "btn btn-primary btn-md px-10 font-semibold tracking-wide" %>
         <%= link_to "Account Settings", edit_user_registration_path, class: "btn btn-outline btn-md px-10 font-semibold tracking-wide" %>

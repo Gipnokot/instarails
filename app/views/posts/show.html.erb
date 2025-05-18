@@ -1,17 +1,17 @@
-<div class="max-w-xl mx-auto p-4 pt-16">
-  <div class="card bg-base-100 shadow-md border">
+<div class="max-w-xl mx-auto p-6 pt-16">
+  <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-lg">
 
-    <div class="flex items-center p-4 space-x-3 border-b">
+    <div class="flex items-center p-4 space-x-4 border-b border-gray-200">
       <% if @post.user.avatar_attacher&.stored? %>
-        <%= image_tag @post.user.avatar_url(:thumb), class: "w-10 h-10 rounded-full object-cover" %>
+        <%= image_tag @post.user.avatar_url(:thumb), class: "w-12 h-12 rounded-full object-cover shadow-sm" %>
       <% else %>
-        <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-semibold">
+        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-semibold text-xl shadow-inner">
           <%= @post.user.email.first.upcase %>
         </div>
       <% end %>
 
       <div>
-        <div class="font-semibold"><%= display_name(@post.user) %></div>
+        <div class="font-semibold text-lg text-gray-900"><%= display_name(@post.user) %></div>
         <div class="text-sm text-gray-500">
           <%= @post.created_at.strftime("%B %d, %Y") %>
         </div>
@@ -19,36 +19,36 @@
     </div>
 
     <% if @post.image_url(:show).present? %>
-      <div class="border-b">
+      <div class="border-b border-gray-200">
         <%= image_tag @post.image_url(:show), loading: "lazy",
-                      class: "w-full object-cover aspect-square" %>
+                      class: "w-full object-cover aspect-square rounded-b-lg" %>
       </div>
     <% end %>
 
-    <div class="px-4 py-3">
-      <h1 class="text-xl font-bold mb-2"><%= @post.title %></h1>
+    <div class="px-6 py-5">
+      <h1 class="text-2xl font-bold mb-4 text-gray-900"><%= @post.title %></h1>
       <div class="prose max-w-none text-gray-700">
         <%= simple_format(@post.body) %>
       </div>
     </div>
 
-    <div class="flex flex-wrap gap-2 px-4 pb-4">
+    <div class="flex flex-wrap gap-3 px-6 pb-6">
       <% if policy(@post).update? %>
-        <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-outline btn-primary btn-sm' %>
+        <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-outline btn-primary btn-sm hover:btn-primary' %>
       <% end %>
       <% if policy(@post).destroy? %>
         <%= button_to 'Delete', post_path(@post), method: :delete,
                       data: { turbo: false, confirm: 'Are you sure?' },
-                      class: 'btn btn-outline btn-error btn-sm' %>
+                      class: 'btn btn-outline btn-error btn-sm hover:btn-error' %>
       <% end %>
-      <%= link_to '← Back to Posts', posts_path, class: 'btn btn-secondary btn-sm' %>
+      <%= link_to '← Back to Posts', posts_path, class: 'btn btn-secondary btn-sm hover:btn-secondary' %>
     </div>
   </div>
 
   <% if @comment.errors.any? %>
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded my-4">
-      <strong>Ошибки:</strong>
-      <ul>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-5 py-4 rounded-lg my-6 shadow-sm">
+      <strong class="block mb-2 text-red-800">Ошибки:</strong>
+      <ul class="list-disc list-inside space-y-1">
         <% @comment.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
@@ -56,25 +56,25 @@
     </div>
   <% end %>
 
-  <div class="mt-10">
-    <h2 class="text-lg font-semibold mb-4">Comments</h2>
+  <div class="mt-12">
+    <h2 class="text-xl font-semibold mb-6 text-gray-900">Comments</h2>
 
-    <div class="space-y-4">
+    <div class="space-y-6">
       <% @comments.each do |comment| %>
         <% cache(comment) do %>
-          <div class="bg-base-100 p-4 rounded-lg shadow-sm border">
-            <div class="flex justify-between items-center mb-2">
+          <div class="bg-base-100 p-5 rounded-lg shadow-md border border-gray-200">
+            <div class="flex justify-between items-center mb-3">
               <div class="text-sm text-gray-500">
-                <strong><%= comment_author(comment) %></strong>
-                <%= l(comment.created_at, format: :short) if comment.created_at.present? %>
+                <strong class="text-gray-800"><%= comment_author(comment) %></strong>
+                <span class="ml-2"><%= l(comment.created_at, format: :short) if comment.created_at.present? %></span>
               </div>
               <% if policy(comment).destroy? %>
                 <%= button_to 'Удалить', post_comment_path(@post, comment), method: :delete,
                               data: { turbo: false, confirm: 'Are you sure?' },
-                              class: "btn btn-xs btn-error btn-outline" %>
+                              class: "btn btn-xs btn-error btn-outline hover:btn-error" %>
               <% end %>
             </div>
-            <div class="text-gray-800">
+            <div class="text-gray-800 leading-relaxed whitespace-pre-line">
               <%= simple_format(comment.body) %>
             </div>
           </div>
@@ -82,8 +82,8 @@
       <% end %>
     </div>
 
-    <div class="mt-8">
-      <h3 class="text-md font-medium mb-2">Add comment</h3>
+    <div class="mt-10">
+      <h3 class="text-lg font-medium mb-4 text-gray-900">Add comment</h3>
       <%= render 'comments/form', post: @post, comment: @comment %>
     </div>
   </div>

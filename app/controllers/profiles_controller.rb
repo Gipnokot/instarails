@@ -1,11 +1,12 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
-  before_action :authorize_user, only: [:edit, :update]
+  before_action :authorize_user
 
   def show; end
 
-  def edit; end
+  def edit
+  end
 
   def update
     if @user.update(user_params)

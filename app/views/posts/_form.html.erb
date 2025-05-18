@@ -1,10 +1,10 @@
-<%= form_with model: post, local: true, html: { class: "space-y-6" } do |form| %>
+<%= form_with model: post, local: true, html: { class: "space-y-8" } do |form| %>
   <% if post.errors.any? %>
     <div role="alert" class="alert alert-error shadow-lg">
-      <div class="font-semibold">
+      <div class="font-semibold text-lg">
         <span><%= pluralize(post.errors.count, "error") %> не позволили сохранить пост:</span>
       </div>
-      <ul class="list-disc list-inside mt-2 text-sm text-red-100">
+      <ul class="list-disc list-inside mt-3 text-sm text-red-100">
         <% post.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
@@ -14,26 +14,27 @@
 
   <div class="form-control">
     <%= form.label :title, class: "label" do %>
-      <span class="label-text">Title</span>
+      <span class="label-text font-medium text-gray-700">Title</span>
     <% end %>
-    <%= form.text_field :title, class: "input input-bordered w-full" %>
+    <%= form.text_field :title, class: "input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition" %>
   </div>
 
   <div class="form-control">
     <%= form.label :body, class: "label" do %>
-      <span class="label-text">Post description</span>
+      <span class="label-text font-medium text-gray-700">Post description</span>
     <% end %>
-    <%= form.text_area :body, rows: 4, class: "textarea textarea-bordered w-full" %>
+    <%= form.text_area :body, rows: 5, class: "textarea textarea-bordered w-full resize-y focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition" %>
   </div>
 
   <div class="form-control">
     <%= form.label :image, class: "label" do %>
-      <span class="label-text">Picture</span>
+      <span class="label-text font-medium text-gray-700">Picture</span>
     <% end %>
-    <%= form.file_field :image, direct_upload: true, class: "file-input file-input-bordered w-full" %>
+    <%= form.file_field :image, direct_upload: true, class: "file-input file-input-bordered w-full cursor-pointer hover:border-primary transition" %>
   </div>
 
-  <div class="form-control">
-    <%= form.submit post.persisted? ? "Update post" : "Create post", class: "btn btn-primary w-full font-semibold" %>
+  <div class="form-control mt-6">
+    <%= form.submit(post.persisted? ? "Update post" : "Create post",
+                    class: "btn btn-primary w-full font-semibold text-lg hover:scale-105 transition-transform duration-150") %>
   </div>
 <% end %>

@@ -108,8 +108,6 @@ GEM
     connection_pool (2.5.3)
     content_disposition (1.0.0)
     crass (1.0.6)
-    cssbundling-rails (1.4.3)
-      railties (>= 6.0.0)
     database_cleaner-active_record (2.2.0)
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
@@ -308,8 +306,6 @@ GEM
     rake (13.2.1)
     rdoc (6.13.1)
       psych (>= 4.0.0)
-    redis (5.4.0)
-      redis-client (>= 0.22.0)
     redis-client (0.24.0)
       connection_pool
     regexp_parser (2.10.0)
@@ -474,7 +470,6 @@ DEPENDENCIES
   brakeman
   bullet
   capybara (>= 3.39)
-  cssbundling-rails (~> 1.4, >= 1.4.3)
   database_cleaner-active_record
   debug
   devise (~> 4.9, >= 4.9.4)
@@ -496,7 +491,6 @@ DEPENDENCIES
   pundit (~> 2.5)
   rails (~> 7.2.2, >= 7.2.2.1)
   rails_best_practices
-  redis (~> 5.4)
   rspec-rails (~> 8.0)
   rspec-sidekiq (~> 5.1)
   rubocop
@@ -509,7 +503,6 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers (~> 6.0)
   shrine (~> 3.6)
-  sidekiq (~> 8.0, >= 8.0.3)
   simplecov
   sprockets-rails
   stimulus-rails

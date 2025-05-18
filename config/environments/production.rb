@@ -15,11 +15,13 @@ Rails.application.configure do
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
-  config.active_job.queue_adapter = :async
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { host: ENV['APP_HOST'] }
   config.action_mailer.delivery_method = :smtp
+
+  config.assets.css_compressor = nil # или :sass
+  config.assets.compile = false # должно быть false в продакшене, если ассеты прекомпилируются заранее
 
   config.cache_store = :memory_store
 

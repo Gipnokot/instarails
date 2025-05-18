@@ -4,11 +4,8 @@ source "https://rubygems.org"
 gem "rails", "~> 7.2.2", ">= 7.2.2.1"
 gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
-gem "sidekiq", "~> 8.0", ">= 8.0.3"
 gem "kaminari", "~> 1.2", ">= 1.2.2"
 gem "kaminari-tailwind"
-gem 'redis', '~> 5.4'
-gem 'cssbundling-rails', '~> 1.4', '>= 1.4.3'
 
 # --- Frontend ---
 gem "importmap-rails"

@@ -21,7 +21,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     authorize @post
     if @post.save
-      redirect_to profile_path(current_user), notice: "Post successfully created"
+      redirect_to user_path(current_user), notice: "Post successfully created"
     else
       render :new, status: :unprocessable_entity
     end

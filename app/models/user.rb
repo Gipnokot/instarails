@@ -6,6 +6,9 @@ class User < ApplicationRecord
 
   include ImageUploader::Attachment(:avatar)
 
+  validates :username, presence: true, uniqueness: true, length: { minimum: 3, maximum: 20 }
+  validates :bio, length: { maximum: 500 }, allow_blank: true
+
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
