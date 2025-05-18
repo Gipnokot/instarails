@@ -4,6 +4,6 @@ module PostsHelper
   end
 
   def display_name(user)
-    user.username.present? ? user.username : username_from_email(user.email)
+    user.username.presence || user.email
   end
 end
