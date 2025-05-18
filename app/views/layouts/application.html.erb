@@ -10,12 +10,8 @@
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json">
 
-    <!-- Preload стилей -->
-    <%= preload_link_tag "application.css", as: "style" %>
-    <%= javascript_importmap_tags %>
-
-    <!-- Подключение скомпилированных стилей -->
     <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
 
     <!-- Preload и подключение JS через Importmap -->
     <%= preload_link_tag "application.js", as: "script" %>

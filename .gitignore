@@ -21,8 +21,14 @@
 /tmp/storage/*
 !/tmp/storage/
 !/tmp/storage/.keep
-/public/assets
 /public/uploads/*
+
+# Keep precompiled assets
+!/public/assets/.sprockets-manifest*
+!/public/assets/application-*
+!/public/assets/tailwind-*
+!/public/assets/controllers-*
+!/public/assets/manifest-*
 
 # Dependencies
 /node_modules
