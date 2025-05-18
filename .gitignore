@@ -38,8 +38,6 @@
 # Ruby/Rails
 /.ruby-version
 /.ruby-gemset
-/app/assets/builds/*
-!/app/assets/builds/.keep
 
 # Configuration files
 /config/master.key
