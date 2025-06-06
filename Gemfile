@@ -24,7 +24,7 @@ gem "fastimage", "~> 2.4"
 gem "mini_magick", "~> 5.2"
 gem "image_processing", "~> 1.14"
 gem "marcel", "~> 1.0", ">= 1.0.4"
-gem "ruby-vips", "~> 2.2", ">= 2.2.3"
+gem "ruby-vips", "~> 2.2"
 
 # --- Misc ---
 gem "jbuilder"
